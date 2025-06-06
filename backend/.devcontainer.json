@@ -1,0 +1,90 @@
+{
+    "service": "backend",
+    "name": "Forcact-Backend",
+    "dockerComposeFile": "../docker-compose.yml",
+    "workspaceFolder": "/app/web",
+    "shutdownAction": "none",
+    // Features to add to the dev container
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "22"
+        },
+        "ghcr.io/devcontainers/features/git:1": {}
+    },
+    // Configure tool-specific properties
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "typescript.preferences.importModuleSpecifier": "relative",
+                "editor.formatOnSave": true,
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": true
+                },
+                "[go]": {
+                    "editor.defaultFormatter": "golang.go"
+                },
+                "[json]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[css]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "emmet.includeLanguages": {
+                    "typescript": "html",
+                    "typescriptreact": "html"
+                },
+                "typescript.updateImportsOnFileMove.enabled": "always",
+                "javascript.updateImportsOnFileMove.enabled": "always",
+                "files.associations": {
+                    "*.css": "tailwindcss"
+                },
+                "tailwindCSS.includeLanguages": {
+                    "typescript": "html",
+                    "typescriptreact": "html"
+                }
+            },
+            "extensions": [
+                "ms-vscode.vscode-typescript-next",
+                "bradlc.vscode-tailwindcss",
+                "esbenp.prettier-vscode",
+                "ms-vscode.vscode-json",
+                "streetsidesoftware.code-spell-checker",
+                "formulahendry.auto-rename-tag",
+                "christian-kohler.path-intellisense",
+                "ms-vscode.live-server",
+                "ms-vscode.vscode-eslint",
+                "dbaeumer.vscode-eslint",
+                "bradlc.vscode-tailwindcss",
+                "ms-playwright.playwright",
+                "yoavbls.pretty-ts-errors",
+                "usernamehw.errorlens",
+                "biomejs.biome"
+            ]
+        }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally
+    "forwardPorts": [
+        8080
+    ],
+    "portsAttributes": {
+        "8080": {
+            "label": "Golang Dev Server",
+            "onAutoForward": "notify",
+            "protocol": "http"
+        }
+    },
+    // Comment out to connect as root instead
+    //"remoteUser": "node",
+    "remoteUser": "root",
+    // Mount the workspace and cache directories
+    "mounts": [
+        "source=frontend-node-modules,target=/app/web/node_modules,type=volume",
+        "source=frontend-next-cache,target=/app/web/.next,type=volume"
+    ],
+    // Environment variables
+    "containerEnv": {
+        "NODE_ENV": "development",
+        "NEXT_TELEMETRY_DISABLED": "1"
+    }
+}
