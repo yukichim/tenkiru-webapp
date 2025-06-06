@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - FRONTEND_URL=http://localhost:3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - weather-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
+      - BACKEND_URL=http://backend:8080
+    #depends_on:
+    #  backend:
+     #   condition: service_healthy
+    #networks:
+    #  - weather-network
+    network_mode: host
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+
+networks:
+  weather-network:
+    driver: bridge
