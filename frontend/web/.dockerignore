@@ -1,0 +1,51 @@
+# Dependencies
+web/node_modules
+web/.pnpm-store
+
+# Build outputs
+web/.next
+web/out
+web/dist
+
+# Environment files
+web/.env*.local
+
+# Logs
+*.log
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+
+# Runtime data
+web/pids
+web/*.pid
+web/*.seed
+web/*.pid.lock
+
+# Coverage directory used by tools like istanbul
+web/coverage
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+.devcontainer
+
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
